@@ -1,0 +1,67 @@
+<script>
+import { mapActions, mapGetters } from "vuex";
+import useValidate from "@vuelidate/core";
+import { required, helpers } from "@vuelidate/validators";
+
+export default {
+    // props: ["countries", "modal_title", "selected_area"],
+    data() {
+        return {
+            v$: useValidate(),
+            form_data: {
+                country_id: '',
+                name_en: '',
+                name_ar: '',
+                remark: '',
+                is_active: true
+            }
+        }
+    },
+    // validations() {
+    //     return {
+    //         form_data: {
+    //             country_id: { required: helpers.withMessage(this.$root.getErrorMessage('required', this.$t('datatable.country')), required) },
+    //             name_en: { required: helpers.withMessage(this.$root.getErrorMessage('required', this.$t('master.name_en')), required) },
+    //             name_ar: { required: helpers.withMessage(this.$root.getErrorMessage('required', this.$t('master.name_ar')), required) },
+    //         }
+    //     };
+    // },
+    methods: {
+        // ...mapActions(["addArea", "updateArea"]),
+        ...mapActions(["getAreas", "updateArea"]),
+
+        // closePopup() {
+        //     this.$emit('close-modal');
+        // },
+
+        // addNewArea() {
+        //     this.v$.$validate()
+        //     if(!this.v$.$error) {
+        //         this.addArea(this.form_data)
+        //     }
+        // },
+        // updateExistingArea() {
+        //     this.v$.$validate()
+        //     if(!this.v$.$error) {
+        //         this.updateArea({
+        //             id: this.selected_area.id, 
+        //             form_data: this.form_data
+        //         })
+        //     }
+        // },
+        // setSelectedArea(){
+        //     this.form_data.country_id = this.selected_area?.country_id ?? ''
+        //     this.form_data.name_en = this.selected_area?.name_en ?? '',
+        //     this.form_data.name_ar = this.selected_area?.name_ar ?? ''
+        //     this.form_data.remark = this.selected_area?.remark ?? ''
+        //     this.form_data.is_active = this.selected_area?.is_active ? true : false
+        // }
+    },
+    mounted() {
+        // this.setSelectedArea()
+        this.getAreas({
+          'X-Tenant': this.user.email,
+        })
+    },
+}
+</script>
